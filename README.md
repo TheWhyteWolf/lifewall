@@ -5,7 +5,7 @@ a relaxed pace while rendering interpolates every cell's colour at 30 fps:
 births fade in, the newborn flash melts into the mature tone, deaths dissolve
 back into the background. Cells are drawn as `#` glyphs (configurable).
 
-A single ~400 KB binary; the only dependency is `libc`.
+A single ~400 KB binary; the only dependencies are `libc` & `kitty`.
 
 ## Build
 
