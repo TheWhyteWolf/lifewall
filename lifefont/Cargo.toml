@@ -1,0 +1,18 @@
+[package]
+name = "lifefont"
+version = "0.1.0"
+edition = "2021"
+description = "Lazy glyph rasterizer shared by the life* components (a fontdue-shaped API over ab_glyph)"
+license = "GPL-3.0-or-later"
+authors = ["Whyte Erminae"]
+
+[dependencies]
+# ab_glyph reads outlines on demand straight from the font bytes. fontdue, which
+# this replaces, parses every glyph up front: 37 MB of heap for the 11k-glyph
+# Nerd font, per process, for the hundred or so glyphs we ever draw.
+ab_glyph = "0.2"
+libc = "0.2"   # mmap: see Map in lib.rs
+
+[dev-dependencies]
+# Only to prove the output matches what the components rendered before.
+fontdue = "0.9"

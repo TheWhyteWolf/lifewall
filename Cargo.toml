@@ -2,11 +2,23 @@
 name = "lifewall"
 version = "0.1.0"
 edition = "2021"
-description = "Conway's Game of Life as a smooth terminal wallpaper (run it inside `kitten panel --edge=background`)"
-license = "MIT"
+description = "Conway's Game of Life as a smooth wallpaper: a Wayland background layer (--layer) or any terminal"
+license = "GPL-3.0-or-later"
+authors = ["Whyte Erminae"]
 
 [dependencies]
 libc = "0.2"
+# --layer. Pinned in lockstep with ../lifelock, ../lifenote and ../lifegreet.
+smithay-client-toolkit = "=0.20.0"
+lifefont = { path = "lifefont" }  # only while building the glyph cells
+# --layer renders on the GPU: CPU-drawn shm made niri re-upload the whole
+# frame on every update (more total CPU than the kitty panel it replaces).
+# EGL + GLES2 means one shader, the glyphs uploaded once, and only the cell
+# colours (~80 KB) per frame.
+khronos-egl = { version = "6", features = ["static"] }
+glow = "0.17"
+wayland-sys = { version = "0.31", features = ["client", "egl"] }
+wayland-backend = { version = "0.3", features = ["client_system"] }
 
 [profile.release]
 lto = true
